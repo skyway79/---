@@ -1,1 +1,61 @@
-code
+import codecs
+import csv
+import matplotlib.pyplot as plt
+from pyecharts.charts import Line,Page
+import pyecharts.options as opts
+import os
+num1=[]
+newmap_name=[]
+with codecs.open('D:\综合课程设计三\owid-covid-data.csv', encoding='utf-8-sig') as f:
+    for row in csv.DictReader(f, skipinitialspace=True):
+        num=[]
+        '''for j in row:
+            #print(j)
+            if j=='continent' or :
+                num.append(row[j])'''
+        num.append(row['continent'])
+        num.append(row['location'])
+        '''if row['location'] not in newmap_name:
+            newmap_name.append(row['location'])'''
+        num.append(row['date'])
+        num.append(row['total_cases'])
+        if row['new_cases']=='':
+            num.append(0)
+        else:
+            num.append(row['new_cases'])
+        #if
+        num.append(row['total_deaths'])
+        num.append(row['new_deaths'])
+        num1.append(num)
+#print(len(newmap_name))
+list1=[]
+for i in num1:
+    if 'World' in i[1] :
+        #print(i[2][:-3],i[3])
+         list1.append([i[2][:-3],i[3],i[4],i[5],i[6]])
+num=[]
+x=[]
+y=[]
+y1=[]
+x.append(list1[0][0])
+y.append(list1[0][1])
+y1.append(list1[0][2])
+d=[]
+d1=[]
+d.append(list1[0][3])
+d1.append(list1[0][4])
+num.append(list1[0])
+for i in list1:
+    if i[0]==num[-1][0]:
+        num[-1][1]=i[1]
+        y[-1]=int(float(i[1]))
+        d[-1]=int(float(i[3]))
+        y1[-1]=int(float(y1[-1]))+int(float(i[2]))
+        d1[-1]=int(float(d1[-1]))+int(float(i[4]))
+    else:
+        num.append(i)
+        x.append(i[0])
+        y.append(int(float(i[1])))
+        y1.append(int(float(i[2])))
+        d.append(int(float(i[3])))
+        d1.append(int(float(i[4])))
