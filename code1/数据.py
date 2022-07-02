@@ -25,12 +25,16 @@ with codecs.open('D:\综合课程设计三\owid-covid-data.csv', encoding='utf-8
             num.append(row['new_cases'])
         #if
         num.append(row['total_deaths'])
-        num.append(row['new_deaths'])
+        if row['new_deaths']=='':
+            num.append(0)
+        else:
+            num.append(row['new_deaths'])
         num1.append(num)
 #print(len(newmap_name))
 list1=[]
 for i in num1:
-    if 'World' in i[1] :
+    #if 'World' in i[1] :
+    if 'China' in i[1]:
         #print(i[2][:-3],i[3])
          list1.append([i[2][:-3],i[3],i[4],i[5],i[6]])
 num=[]
@@ -72,7 +76,7 @@ def Line_charts():
     }
     c.set_global_opts(
         # 设置标题
-        title_opts=opts.TitleOpts(title="全球新冠疫情确诊人数变化"),
+        title_opts=opts.TitleOpts(title="全国新冠疫情确诊人数变化"),
         # 设置图例is_show=False是不显示图例
         legend_opts=opts.LegendOpts(is_show=True),
         # 设置提示项
@@ -94,7 +98,7 @@ def Line_charts1():
     }
     c1.set_global_opts(
         # 设置标题
-        title_opts=opts.TitleOpts(title="全球新冠疫情死亡人数变化"),
+        title_opts=opts.TitleOpts(title="全国新冠疫情死亡人数变化"),
         # 设置图例is_show=False是不显示图例
         legend_opts=opts.LegendOpts(is_show=True),
         # 设置提示项
@@ -109,8 +113,8 @@ c = Line_charts()
 c1=Line_charts1()
 page=Page(layout=Page.DraggablePageLayout)
 page.add(c,c1)
-page.render('全球疫情情况统计.html')
-os.system('全球疫情情况统计.html')
+page.render('全国疫情情况统计.html')
+os.system('全国疫情情况统计.html')
 '''
 c.render("全球新冠疫情统计.html")
 c1.render("全球死亡人数.html")
